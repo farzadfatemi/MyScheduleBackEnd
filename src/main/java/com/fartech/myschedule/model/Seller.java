@@ -17,6 +17,7 @@ public class Seller implements Serializable {
     private Integer phone;
     private String website;
     private String email;
+    private String address;
     private String description;
 
 
@@ -58,6 +59,14 @@ public class Seller implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDescription() {
