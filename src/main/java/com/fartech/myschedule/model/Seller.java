@@ -17,7 +17,7 @@ public class Seller implements Serializable {
     private Integer phone;
     private String website;
     private String email;
-    private String comment;
+    private String description;
 
 
     public Integer getSellerId() {
@@ -60,12 +60,12 @@ public class Seller implements Serializable {
         this.email = email;
     }
 
-    public String getComment() {
-        return comment;
+    public String getDescription() {
+        return description;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 
