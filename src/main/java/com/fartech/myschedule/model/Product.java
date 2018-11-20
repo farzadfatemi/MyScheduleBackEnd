@@ -16,7 +16,7 @@ public class Product implements Serializable {
     private Integer productId;
     private String name;
     private String description;
-    private Integer manufacturerId;
+    private Integer companyId;
     private Integer categoryId;
     private Date prodDate;
     private Date expDate;
@@ -51,12 +51,12 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public Integer getManufacturerId() {
-        return manufacturerId;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
-    public void setManufacturerId(Integer manufacturerId) {
-        this.manufacturerId = manufacturerId;
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
     public Integer getCategoryId() {

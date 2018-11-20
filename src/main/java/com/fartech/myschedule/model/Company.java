@@ -7,12 +7,12 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "manufacturer")
+@Table(name = "company")
 @EntityListeners(AuditingEntityListener.class)
-public class Manufacturer implements Serializable {
+public class Company implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer manufacturerId;
+    private Integer companyId;
     private String name;
     private String address;
     private String branch;
@@ -21,15 +21,15 @@ public class Manufacturer implements Serializable {
     private String field;
     private String nationality;
     private Integer phone;
-    private Integer sellerId;
+    private Integer businessTypeId;
     private String website;
 
-    public Integer getManufacturerId() {
-        return manufacturerId;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
-    public void setManufacturerId(Integer manufacturerId) {
-        this.manufacturerId = manufacturerId;
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
     public String getName() {
@@ -96,12 +96,12 @@ public class Manufacturer implements Serializable {
         this.phone = phone;
     }
 
-    public Integer getSellerId() {
-        return sellerId;
+    public Integer getBusinessTypeId() {
+        return businessTypeId;
     }
 
-    public void setSellerId(Integer sellerId) {
-        this.sellerId = sellerId;
+    public void setBusinessTypeId(Integer businessTypeId) {
+        this.businessTypeId = businessTypeId;
     }
 
     public String getWebsite() {
@@ -110,5 +110,22 @@ public class Manufacturer implements Serializable {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "companyId=" + companyId +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", branch='" + branch + '\'' +
+                ", comment='" + comment + '\'' +
+                ", email='" + email + '\'' +
+                ", field='" + field + '\'' +
+                ", nationality='" + nationality + '\'' +
+                ", phone=" + phone +
+                ", businessTypeId=" + businessTypeId +
+                ", website='" + website + '\'' +
+                '}';
     }
 }

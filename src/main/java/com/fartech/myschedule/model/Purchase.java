@@ -16,7 +16,7 @@ public class Purchase implements Serializable {
     private Integer productId;
     private Integer sellerId;
     private Integer categoryId;
-    private Integer manufacturerId;
+    private Integer companyId;
     private Integer price;
     private Integer amount;
     private Integer unitId;
@@ -57,12 +57,12 @@ public class Purchase implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public Integer getManufacturerId() {
-        return manufacturerId;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
-    public void setManufacturerId(Integer manufacturerId) {
-        this.manufacturerId = manufacturerId;
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
     public Integer getPrice() {
