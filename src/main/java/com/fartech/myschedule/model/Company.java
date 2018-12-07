@@ -16,7 +16,7 @@ public class Company implements Serializable {
     private String name;
     private String address;
     private String branch;
-    private String comment;
+    private String description;
     private String email;
     private String field;
     private String nationality;
@@ -56,12 +56,12 @@ public class Company implements Serializable {
         this.branch = branch;
     }
 
-    public String getComment() {
-        return comment;
+    public String getDescription() {
+        return description;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getEmail() {
@@ -119,7 +119,7 @@ public class Company implements Serializable {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", branch='" + branch + '\'' +
-                ", comment='" + comment + '\'' +
+                ", description='" + description + '\'' +
                 ", email='" + email + '\'' +
                 ", field='" + field + '\'' +
                 ", nationality='" + nationality + '\'' +

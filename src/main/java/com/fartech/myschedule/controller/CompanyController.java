@@ -15,9 +15,7 @@ public class CompanyController {
     private final CompanyRepository companyRepository;
 
     @Autowired
-    public CompanyController(CompanyRepository companyRepository) {
-        this.companyRepository = companyRepository;
-    }
+    public CompanyController(CompanyRepository companyRepository) {this.companyRepository = companyRepository;}
 
     @CrossOrigin
     @GetMapping("/allCompanies")
