@@ -1,9 +1,11 @@
 package com.fartech.myschedule.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -12,8 +14,7 @@ import java.util.Date;
 public class Purchase implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer purchaseId;
-    private Integer productId;
+    private Integer id;
     private Integer sellerId;
     private Integer categoryId;
     private Integer companyId;
@@ -21,24 +22,24 @@ public class Purchase implements Serializable {
     private Integer amount;
     private Integer unitId;
     private boolean todo;
-    private String comment;
+    private String description;
     private Date date = new Date();
 
+    @JsonManagedReference
+    @ManyToMany(cascade = CascadeType.ALL )
+    @JoinTable(name = "product_purchase",
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "purchase_id",
+                    referencedColumnName = "id"))
+    private List<Product> product;
 
-    public Integer getPurchaseId() {
-        return purchaseId;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setPurchaseId(Integer purchaseId) {
-        this.purchaseId = purchaseId;
-    }
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getSellerId() {
@@ -97,12 +98,12 @@ public class Purchase implements Serializable {
         this.todo = todo;
     }
 
-    public String getComment() {
-        return comment;
+    public String getDescription() {
+        return description;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getDate() {
@@ -111,5 +112,13 @@ public class Purchase implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public List<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<Product> product) {
+        this.product = product;
     }
 }

@@ -1,7 +1,10 @@
 package com.fartech.myschedule.controller;
 
 import com.fartech.myschedule.exception.ResourceNotFoundException;
+import com.fartech.myschedule.model.Product;
 import com.fartech.myschedule.model.Purchase;
+import com.fartech.myschedule.model.PurchasedProduct;
+import com.fartech.myschedule.repository.ProductRepository;
 import com.fartech.myschedule.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -20,26 +23,34 @@ public class PurchaseController {
 
     // Get All Purchases
     @CrossOrigin
-    @GetMapping("/onlyPurchases")
-    public List<Purchase> getOnlyPurchases() {
+    @GetMapping("/allPurchases")
+    public List<Purchase> getAllPurchases() {
         System.out.println("All Purchases is called ...");
 //        return purchaseRepository.findAll();
         return purchaseRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
     }
 
-     // Get All Purchases
+    /*
+   // Get All Purchases
     @CrossOrigin
-    @GetMapping("/allPurchases")
-    @Query(value = "select purchase.*,product.name  from product,purchase where purchase.product_id=product.product_id", nativeQuery = true)
-    public List<Purchase> getAllPurchases() {
+    @GetMapping("/allPurchasedProduct")
+    public PurchasedProduct getAllPurchases() {
 
-        System.out.println("All Purchases is called ...");
-
-//        return purchaseRepository.findAll();
-        List<Purchase> result = purchaseRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
-        System.out.println(result !=null && result.size()>0?result.get(0).getSellerId():"No Result");
-        return result;
+        System.out.println("All Purchased Product is called ...");
+        PurchasedProduct purchasedProduct = null;
+        try {
+            purchasedProduct = new PurchasedProduct();
+            List<Purchase> purchases = purchaseRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
+            List<Product> products = productRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
+            purchasedProduct.setPurchaseList(purchases);
+            purchasedProduct.setProductList(products);
+            System.out.println(purchasedProduct.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return purchasedProduct;
     }
+    */
 
     // Create a new Purchase
     @CrossOrigin
@@ -60,20 +71,20 @@ public class PurchaseController {
     // Update a Purchase
     @PutMapping("/purchases/{id}")
     public Purchase updatePurchase(@PathVariable(value = "id") int purchaseId,
-                           @Valid @RequestBody Purchase purchaseDetails) {
+                                   @Valid @RequestBody Purchase purchaseDetails) {
 
         Purchase purchase = purchaseRepository.findById(purchaseId)
                 .orElseThrow(() -> new ResourceNotFoundException("Purchase", "id", purchaseId));
 
-//        purchase.setPurchaseId(purchaseDetails.getPurchaseId());
-        purchase.setProductId(purchaseDetails.getProductId());
-        purchase.setComment(purchaseDetails.getComment());
+//        purchase.setId(purchaseDetails.getId());
+        purchase.setDescription(purchaseDetails.getDescription());
         purchase.setCategoryId(purchaseDetails.getCategoryId());
         purchase.setAmount(purchaseDetails.getAmount());
         purchase.setDate(purchaseDetails.getDate());
         purchase.setPrice(purchaseDetails.getPrice());
         purchase.setTodo(purchaseDetails.isTodo());
         purchase.setSellerId(purchaseDetails.getSellerId());
+        purchase.setProduct (purchaseDetails.getProduct ());
 
         return purchaseRepository.save(purchase);
     }

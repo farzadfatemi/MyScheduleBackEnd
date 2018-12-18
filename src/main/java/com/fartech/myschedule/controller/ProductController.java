@@ -23,7 +23,7 @@ public class ProductController {
     @GetMapping("/allProducts")
     public List<Product> getAllProducts() {
         System.out.println("All Products is called ...");
-        return productRepository.findAll(new Sort(Sort.Direction.ASC, "productId"));
+        return productRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
     }
     // Create a new Product
     @CrossOrigin

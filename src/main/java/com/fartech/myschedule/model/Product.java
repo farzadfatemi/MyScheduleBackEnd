@@ -1,10 +1,12 @@
 package com.fartech.myschedule.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -13,7 +15,7 @@ import java.util.Date;
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer productId;
+    private Integer id;
     private String name;
     private String description;
     private Integer companyId;
@@ -27,12 +29,18 @@ public class Product implements Serializable {
     private String width;
     private String warranty;
 
-    public Integer getProductId() {
-        return productId;
+    @JsonBackReference
+    @ManyToMany(mappedBy = "product")
+    private List<Purchase> purchase;
+
+
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -130,5 +138,13 @@ public class Product implements Serializable {
 
     public void setWarranty(String warranty) {
         this.warranty = warranty;
+    }
+
+    public List<Purchase> getPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(List<Purchase> purchase) {
+        this.purchase = purchase;
     }
 }
