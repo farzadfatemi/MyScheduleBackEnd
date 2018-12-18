@@ -5,6 +5,7 @@ import com.fartech.myschedule.model.Purchase;
 import com.fartech.myschedule.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +20,25 @@ public class PurchaseController {
 
     // Get All Purchases
     @CrossOrigin
-    @GetMapping("/allPurchases")
-    public List<Purchase> getAllPurchases() {
+    @GetMapping("/onlyPurchases")
+    public List<Purchase> getOnlyPurchases() {
         System.out.println("All Purchases is called ...");
 //        return purchaseRepository.findAll();
         return purchaseRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
+    }
+
+     // Get All Purchases
+    @CrossOrigin
+    @GetMapping("/allPurchases")
+    @Query(value = "select purchase.*,product.name  from product,purchase where purchase.product_id=product.product_id", nativeQuery = true)
+    public List<Purchase> getAllPurchases() {
+
+        System.out.println("All Purchases is called ...");
+
+//        return purchaseRepository.findAll();
+        List<Purchase> result = purchaseRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
+        System.out.println(result !=null && result.size()>0?result.get(0).getSellerId():"No Result");
+        return result;
     }
 
     // Create a new Purchase
