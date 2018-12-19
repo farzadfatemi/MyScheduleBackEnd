@@ -28,8 +28,8 @@ public class Purchase implements Serializable {
     @JsonManagedReference
     @ManyToMany(cascade = CascadeType.ALL )
     @JoinTable(name = "product_purchase",
-            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "purchase_id",
+            joinColumns = @JoinColumn(name = "purchase_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id ",
                     referencedColumnName = "id"))
     private List<Product> product;
 
