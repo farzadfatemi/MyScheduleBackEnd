@@ -1,12 +1,9 @@
 package com.fartech.myschedule.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 
 @Entity
@@ -15,13 +12,13 @@ import java.util.List;
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer productId;
     private String name;
     private String description;
     private Integer companyId;
     private Integer categoryId;
-    private Date prodDate;
-    private Date expDate;
+    private String prodDate;
+    private String expDate;
     private String weight;
     private String color;
     private String height;
@@ -29,18 +26,15 @@ public class Product implements Serializable {
     private String width;
     private String warranty;
 
-    @JsonBackReference
-    @ManyToMany(mappedBy = "product")
-    private List<Purchase> purchase;
 
 
 
-    public Integer getId() {
-        return id;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -75,19 +69,19 @@ public class Product implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public Date getProdDate() {
+    public String getProdDate() {
         return prodDate;
     }
 
-    public void setProdDate(Date prodDate) {
+    public void setProdDate(String prodDate) {
         this.prodDate = prodDate;
     }
 
-    public Date getExpDate() {
+    public String getExpDate() {
         return expDate;
     }
 
-    public void setExpDate(Date expDate) {
+    public void setExpDate(String expDate) {
         this.expDate = expDate;
     }
 
@@ -140,11 +134,5 @@ public class Product implements Serializable {
         this.warranty = warranty;
     }
 
-    public List<Purchase> getPurchase() {
-        return purchase;
-    }
 
-    public void setPurchase(List<Purchase> purchase) {
-        this.purchase = purchase;
-    }
 }

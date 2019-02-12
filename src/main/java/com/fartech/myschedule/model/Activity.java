@@ -1,10 +1,9 @@
 package com.fartech.myschedule.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 
 @Entity
@@ -15,14 +14,15 @@ public class Activity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer  activityId;
     private String title;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private Integer activityCategoryId;
     private String description;
+    private String day;
     private Integer purchaseId;
-    private boolean todo;
+    private boolean isDone;
 
-    public int getActivityId() {
+    public Integer getActivityId() {
         return activityId;
     }
 
@@ -38,19 +38,19 @@ public class Activity implements Serializable {
         this.title = title;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
@@ -70,20 +70,52 @@ public class Activity implements Serializable {
         this.description = description;
     }
 
-    @JsonIgnore
-    public int getPurchaseId() {
+    public void setActivityId(Integer activityId) {
+        this.activityId = activityId;
+    }
+
+    public void setActivityCategoryId(Integer activityCategoryId) {
+        this.activityCategoryId = activityCategoryId;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public Integer getPurchaseId() {
         return purchaseId;
     }
 
-    public void setPurchaseId(int purchaseId) {
+    public void setPurchaseId(Integer purchaseId) {
         this.purchaseId = purchaseId;
     }
 
-    public boolean isTodo() {
-        return todo;
+    public boolean isDone() {
+        return isDone;
     }
 
-    public void setTodo(boolean todo) {
-        this.todo = todo;
+    public void setDone(boolean isFinished) {
+        this.isDone = isFinished;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "activityId=" + activityId +
+                ", title='" + title + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", activityCategoryId=" + activityCategoryId +
+                ", description='" + description + '\'' +
+                ", day='" + day + '\'' +
+                ", purchaseId=" + purchaseId +
+                ", isDone=" + isDone +
+                '}';
     }
 }

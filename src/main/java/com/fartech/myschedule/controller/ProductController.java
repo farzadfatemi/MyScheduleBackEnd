@@ -23,13 +23,13 @@ public class ProductController {
     @GetMapping("/allProducts")
     public List<Product> getAllProducts() {
         System.out.println("All Products is called ...");
-        return productRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
+        return productRepository.findAll(new Sort(Sort.Direction.ASC, "productId"));
     }
     // Create a new Product
     @CrossOrigin
     @PostMapping("/addProduct")
     public Product addProduct(@Valid @RequestBody Product product) {
-        System.out.println("Add Product is called ...");
+        System.out.println("Add Product is called ... "+product.toString());
         return productRepository.save(product);
     }
 }

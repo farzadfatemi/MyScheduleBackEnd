@@ -2,12 +2,13 @@ package com.fartech.myschedule.controller;
 
 import com.fartech.myschedule.model.Activity;
 import com.fartech.myschedule.model.ActivityCategory;
-import com.fartech.myschedule.model.Category;
 import com.fartech.myschedule.repository.ActivityCategoryRepository;
 import com.fartech.myschedule.repository.ActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,7 +29,9 @@ public class ActivityController {
     @GetMapping("/allActivities")
     public List<Activity> getAllActivities() {
         System.out.println("All Activities is called ...");
-        return activityRepository.findAll(new Sort(Sort.Direction.ASC, "activityId"));
+        List<Activity> test = activityRepository.findAll(new Sort(Sort.Direction.ASC, "activityId"));
+        System.out.println(test);
+        return test;
     }
 
     @CrossOrigin
@@ -41,8 +44,23 @@ public class ActivityController {
     @CrossOrigin
     @PostMapping("/addActivity")
     public Activity addActivity(@Valid @RequestBody Activity activity) {
-        System.out.println("Add Activity is called ...");
-//        return activityRepository.save(activity);
-        return null;
+        System.out.println("Add Activity is called ..."+ activity.toString());
+        return activityRepository.save(activity);
+//        return null;
+    }
+
+    // Remove a new Activity
+    @CrossOrigin
+    @PostMapping(value = "/deleteActivity")
+    @ResponseStatus(value = HttpStatus.OK)
+    public String deleteUser(@Valid @RequestBody Integer idx, final RedirectAttributes redirectAttributes) {
+
+        System.out.println("Delete activity with Id : "+idx);
+
+        redirectAttributes.addFlashAttribute("css", "Success");
+        redirectAttributes.addFlashAttribute("msg", "The user is deleted");
+
+        activityRepository.deleteById(idx);
+        return String.valueOf(redirectAttributes);
     }
 }

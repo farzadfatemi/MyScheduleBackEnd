@@ -29,7 +29,7 @@ public class CategoryController {
     @CrossOrigin
     @PostMapping("/addCategory")
     public Category addCategory(@Valid @RequestBody Category category) {
-        System.out.println("Add Category is called ...");
+        System.out.println("Add Category is called ..." +category.toString());
         return categoryRepository.save(category);
     }
 }

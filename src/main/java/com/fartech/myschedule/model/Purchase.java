@@ -1,11 +1,10 @@
 package com.fartech.myschedule.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 
 @Entity
@@ -18,6 +17,7 @@ public class Purchase implements Serializable {
     private Integer sellerId;
     private Integer categoryId;
     private Integer companyId;
+    private Integer productId;
     private Integer price;
     private Integer amount;
     private Integer unitId;
@@ -25,14 +25,30 @@ public class Purchase implements Serializable {
     private String description;
     private Date date = new Date();
 
-    @JsonManagedReference
-    @ManyToMany(cascade = CascadeType.ALL )
-    @JoinTable(name = "product_purchase",
-            joinColumns = @JoinColumn(name = "purchase_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id ",
-                    referencedColumnName = "id"))
-    private List<Product> product;
+    @Override
+    public String toString() {
+        return "Purchase{" +
+                "id=" + id +
+                ", sellerId=" + sellerId +
+                ", categoryId=" + categoryId +
+                ", companyId=" + companyId +
+                ", productId=" + productId +
+                ", price=" + price +
+                ", amount=" + amount +
+                ", unitId=" + unitId +
+                ", todo=" + todo +
+                ", description='" + description + '\'' +
+                ", date=" + date +
+                '}';
+    }
 
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
 
     public Integer getId() {
         return id;
@@ -114,11 +130,5 @@ public class Purchase implements Serializable {
         this.date = date;
     }
 
-    public List<Product> getProduct() {
-        return product;
-    }
 
-    public void setProduct(List<Product> product) {
-        this.product = product;
-    }
 }

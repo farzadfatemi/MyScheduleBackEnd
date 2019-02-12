@@ -1,14 +1,10 @@
 package com.fartech.myschedule.controller;
 
 import com.fartech.myschedule.exception.ResourceNotFoundException;
-import com.fartech.myschedule.model.Product;
 import com.fartech.myschedule.model.Purchase;
-import com.fartech.myschedule.model.PurchasedProduct;
-import com.fartech.myschedule.repository.ProductRepository;
 import com.fartech.myschedule.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +22,10 @@ public class PurchaseController {
     @GetMapping("/allPurchases")
     public List<Purchase> getAllPurchases() {
         System.out.println("All Purchases is called ...");
+        List<Purchase> purchases = purchaseRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
+//        System.out.println("Purchase List : \n"+ purchases.toString());
 //        return purchaseRepository.findAll();
-        return purchaseRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
+        return purchases;
     }
 
     /*
@@ -76,7 +74,7 @@ public class PurchaseController {
         Purchase purchase = purchaseRepository.findById(purchaseId)
                 .orElseThrow(() -> new ResourceNotFoundException("Purchase", "id", purchaseId));
 
-//        purchase.setId(purchaseDetails.getId());
+//        purchase.setProductId(purchaseDetails.getProductId());
         purchase.setDescription(purchaseDetails.getDescription());
         purchase.setCategoryId(purchaseDetails.getCategoryId());
         purchase.setAmount(purchaseDetails.getAmount());
@@ -84,7 +82,7 @@ public class PurchaseController {
         purchase.setPrice(purchaseDetails.getPrice());
         purchase.setTodo(purchaseDetails.isTodo());
         purchase.setSellerId(purchaseDetails.getSellerId());
-        purchase.setProduct (purchaseDetails.getProduct ());
+        purchase.setProductId (purchaseDetails.getProductId());
 
         return purchaseRepository.save(purchase);
     }
